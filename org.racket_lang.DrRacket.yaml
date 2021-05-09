@@ -22,8 +22,11 @@ modules:
   - name: drracket
     subdir: src
     post-install: 
-      - install -D -m644 $FLATPAK_BUILDER_BUILDDIR/share/pkgs/icons/racket-logo.svg /app/share/icons/hicolor/scalable/apps/$FLATPAK_ID.svg
-      - desktop-file-edit --set-icon=$FLATPAK_ID /app/share/applications/drracket.desktop
+      - install -D -m644 "$FLATPAK_DEST"/share/racket/drracket-exe-icon.png "$FLATPAK_DEST"/share/icons/hicolor/96x96/apps/"$FLATPAK_ID".png
+      - desktop-file-edit --set-icon="$FLATPAK_ID" "$FLATPAK_DEST"/share/applications/drracket.desktop
+      - mv "$FLATPAK_DEST"/share/applications/slideshow.desktop "$FLATPAK_DEST"/share/applications/"$FLATPAK_ID".Slideshow.desktop
+      - install -D -m644 "$FLATPAK_DEST"/share/racket/slideshow-exe-icon.png "$FLATPAK_DEST"/share/icons/hicolor/96x96/apps/"$FLATPAK_ID".Slideshow.png
+      - desktop-file-edit --set-icon="$FLATPAK_ID".Slideshow "$FLATPAK_DEST"/share/applications/"$FLATPAK_ID".Slideshow.desktop
     sources:
       - type: archive
         url: https://download.racket-lang.org/releases/7.9/installers/racket-7.9-src.tgz
